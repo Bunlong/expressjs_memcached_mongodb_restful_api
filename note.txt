@@ -1,5 +1,9 @@
 npm install --save memcached mongodb mongoose nodemon
 
+======= get all questions =======
+curl http://127.0.0.1:3000/questions
+=================================
+
 ======= get a question =======
 curl http://127.0.0.1:3000/questions/5b6bc4ce15f50b5a5e951d4f
 =================================
