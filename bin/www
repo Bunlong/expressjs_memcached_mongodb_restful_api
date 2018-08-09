@@ -28,6 +28,12 @@ global.memcachedMiddleware = (duration) => {
 };
 
 /**
+ * Load .env file.
+ */
+
+require('dotenv').config();
+
+/**
  * Module dependencies.
  */
 
@@ -43,11 +49,11 @@ var mongoose = require('mongoose');
 var Memcached = require('memcached');
 
 /**
- * Variable for connecting to memcached and mongodb
+ * Variable for connecting to memcached and mongodb.
  */
 
-var dbURI = 'mongodb://localhost:27017/emmra', 
-    memcachedURI = 'localhost:11211';
+var dbURI = `${process.env.DB_CONNECTION}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`, 
+    memcachedURI = `${process.env.MEMCACHED_HOST}:${process.env.MEMCACHED_PORT}`;
 
 /**
  * Get port from environment and store in Express.
@@ -63,7 +69,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Connect to mongodb using mongoose npm module
+ * Connect to mongodb using mongoose npm module.
  */
 
 mongoose.connect(dbURI);
