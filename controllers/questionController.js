@@ -16,7 +16,10 @@ exports.create = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  
+  Question.findByIdAndUpdate(req.params.id, { $set: req.body}, { new: true }, function (err, result) {
+    if (err) res.status(500).send({ data: null });
+    res.status(200).send({ data: result });
+  });
 };
 
 exports.destroy = function(req, res) {
