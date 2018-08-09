@@ -16,6 +16,33 @@ var mongoose = require('mongoose');
 var Memcached = require('memcached');
 
 /**
+ * memcachedMiddleware global function for using in routes
+ */
+global.memcachedMiddleware = (duration) => {
+  return  (req, res, next) => {
+    let key = "__express__" + req.originalUrl || req.url;
+
+    memcached.get(key, function(err, data) {
+      if (data) {
+        res.send(data);
+        return;
+      } else {
+        res.sendResponse = res.send;
+
+        res.send = (body) => {
+          memcached.set(key, body, (duration*60), function(err) {
+            console.log(err);
+          });
+
+          res.sendResponse(body);
+        }
+        next();
+      }
+    });
+  }
+};
+
+/**
  * Variable for connecting to memcached and mongodb
  */
 
