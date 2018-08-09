@@ -9,6 +9,18 @@ var debug = require('debug')('expressjs-memcached-mongodb-restful-api:server');
 var http = require('http');
 
 /**
+ * memcached and mongodb module dependencies.
+ */
+
+var mongoose = require('mongoose');
+
+/**
+ * Variable for connecting to memcached and mongodb
+ */
+
+var dbURI = 'mongodb://localhost:27017/emmra'; 
+
+/**
  * Get port from environment and store in Express.
  */
 
@@ -22,12 +34,33 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Listen on provided port, on all network interfaces.
+ * Connect to mongodb using mongoose npm module
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+mongoose.connect(dbURI);
+
+mongoose.connection.on('connected', function () {  
+  console.log('Mongoose default connection open to ' + dbURI);
+
+  /**
+   * Listen on provided port, on all network interfaces.
+   */
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
+
+mongoose.connection.on('error',function (err) {  
+  console.log('Mongoose default connection error: ' + err);
+}); 
+
+mongoose.connection.on('disconnected', function () {  
+  console.log('Mongoose default connection disconnected'); 
+});
+
+/**
+ * =========================================================
+ */
 
 /**
  * Normalize a port into a number, string, or false.
