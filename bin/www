@@ -15,7 +15,7 @@ global.memcachedMiddleware = (duration) => {
         res.sendResponse = res.send;
 
         res.send = (body) => {
-          memcached.set(key, body, (duration*60), function(err) {
+          memcached.set(key, body, (duration*60), function(err) { // duration*60 is 1 minute
             console.log(err);
           });
 

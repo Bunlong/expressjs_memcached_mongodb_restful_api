@@ -3,9 +3,9 @@ var router = express.Router();
 
 var questionController = require('../controllers/questionController');
 
-router.get('/', memcachedMiddleware(60), questionController.index);
+router.get('/', memcachedMiddleware(1), questionController.index);
 
-router.get('/:id', memcachedMiddleware(60), questionController.show);
+router.get('/:id', memcachedMiddleware(1), questionController.show);
 
 router.post('/', questionController.create);
 

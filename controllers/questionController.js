@@ -29,5 +29,8 @@ exports.update = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-  
+  Question.findByIdAndRemove(req.params.id, function (err, result) {
+    if (err) res.status(500).send({ data: null });
+    res.status(200).send({ data: result });
+  });
 };
