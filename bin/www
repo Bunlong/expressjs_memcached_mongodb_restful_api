@@ -13,12 +13,14 @@ var http = require('http');
  */
 
 var mongoose = require('mongoose');
+var Memcached = require('memcached');
 
 /**
  * Variable for connecting to memcached and mongodb
  */
 
-var dbURI = 'mongodb://localhost:27017/emmra'; 
+var dbURI = 'mongodb://localhost:27017/emmra', 
+    memcachedURI = 'localhost:11211';
 
 /**
  * Get port from environment and store in Express.
@@ -41,6 +43,12 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {  
   console.log('Mongoose default connection open to ' + dbURI);
+
+  memcached = new Memcached();
+  memcached.connect(memcachedURI, function(err, con) {
+    if (err) throw new Error(err);
+    console.log('Memcached default connection open to ' + memcachedURI);
+  });
 
   /**
    * Listen on provided port, on all network interfaces.
