@@ -1,21 +1,6 @@
 #!/usr/bin/env node
 
 /**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('expressjs-memcached-mongodb-restful-api:server');
-var http = require('http');
-
-/**
- * memcached and mongodb module dependencies.
- */
-
-var mongoose = require('mongoose');
-var Memcached = require('memcached');
-
-/**
  * memcachedMiddleware global function for using in routes
  */
 global.memcachedMiddleware = (duration) => {
@@ -41,6 +26,21 @@ global.memcachedMiddleware = (duration) => {
     });
   }
 };
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('expressjs-memcached-mongodb-restful-api:server');
+var http = require('http');
+
+/**
+ * memcached and mongodb module dependencies.
+ */
+
+var mongoose = require('mongoose');
+var Memcached = require('memcached');
 
 /**
  * Variable for connecting to memcached and mongodb
