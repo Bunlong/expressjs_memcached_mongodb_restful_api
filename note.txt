@@ -1,4 +1,4 @@
-npm install --save memcached mongodb mongoose nodemon
+npm install --save memcached mongodb mongoose nodemon dotenv
 
 ======= get all questions =======
 curl http://127.0.0.1:3000/questions
